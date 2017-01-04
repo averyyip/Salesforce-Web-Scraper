@@ -15,21 +15,25 @@ def get_status(soup):
 	status = soup.find("span", {"class":"comty-status-badge"})
 	return html_text_getter(status)
 
-#Retrieves PM Response(Y/N) and Date of Last PM Response
+#Retrieves PM Response(Y/N) and Date of Last PM Response, Provided HTML Solution, body of Response
 def get_pm_response(soup):
 	latest_comment_section = soup.find("div", {"id":"ideaView:ForumLayout:ideaViewForm:latestCommentSection"})
 	if latest_comment_section:
 		date = html_text_getter(latest_comment_section.find("span", {"class":"cmp-text-body--small"}))
-		solution = latest_comment_section.find("a", {"target": "_blank"}).get_text()
-		return "Y", date, solution
+		detail = html_text_getter(latest_comment_section.find("div", {"class":"htmlDetailElementDiv"}))
+		solution = latest_comment_section.find("a", {"target": "_blank"}).get_text() #did not want to accidentally ruin html link
+		return "Y", date, solution, detail
 	else:
-		return "N", "N/A", "N/A"
+		return "N", "N/A", "N/A", "N/A"
 
 #Retrieves all comments from an idea
 def get_comments(soup):
+	iter_comments = soup.find_all("li", class_="cmp-comments-list")
+	return list(get_comments_text(iter_comments))
 
-#Retrieves description of idea
-def get_description(soup):
+def get_comments_text(iterable_soup):
+	for elem in iterable_soup:
+		yield html_text_getter(elem.find("div", {"class":"htmlDetailElementDiv"}))
 
 def scraping(id):
 	html = urllib.request.urlopen("https://success.salesforce.com/ideaView?id=" + id)
@@ -38,12 +42,23 @@ def scraping(id):
 	#Status (ex. Deliver in Lightning, Under consideration, etc.)
 	status = get_status(soup)
 	
-	#PM Comment Information
-	pm_response, date, solution = get_pm_response(soup)
+	#PM Response Information
+	pm_response, date, solution, details = get_pm_response(soup)
+
+	#Comments
+	comment_array = get_comments(soup)
 
 	#Testing
-	print(status, pm_response, date, solution)
-	return pm_response
+	print("Status: " + status)
+	print("PM Response: " + pm_response)
+	print("Last Response Date: " + date)
+	print("HTML Solution: " + solution)
+	print("PM Response Details: " + details)
+	for i in range(len(comment_array)):
+		print("")
+		print(comment_array[i])
+
+	print("-------------------------------------------------------------------------------------")
 
 scraping(test1)
 scraping(test2)
