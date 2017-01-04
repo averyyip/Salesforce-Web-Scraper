@@ -8,7 +8,7 @@ test3 = "0873A000000cMZQQA2" #under point no comments
 
 #Retrieves text from html & Removes all whitespace and tags
 def html_text_getter(html):
-	return html.get_text().strip(" \t\n\r")
+	return html.get_text().strip(" \t\n\r<br>")
 
 #Retrieves Status of Idea
 def get_status(soup):
@@ -55,11 +55,9 @@ def scraping(id):
 	print("HTML Solution: " + solution)
 	print("PM Response Details: " + details)
 	for i in range(len(comment_array)):
-		print("")
+		print("----------------------------------------")
 		print(comment_array[i])
 
-	print("-------------------------------------------------------------------------------------")
-
 scraping(test1)
-scraping(test2)
-scraping(test3)
+# scraping(test2)
+# scraping(test3)
