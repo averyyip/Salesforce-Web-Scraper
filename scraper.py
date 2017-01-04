@@ -2,13 +2,10 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import urllib.request
 
-test1 = "08730000000BrbOAAS" #lightning with pm
-test2 = "0873A000000cNNaQAM" #under point with no pm
-test3 = "0873A000000cMZQQA2" #under point no comments
 
 #Retrieves text from html & Removes all whitespace and tags
 def html_text_getter(html):
-	return html.get_text().strip(" \t\n\r<br>")
+	return html.get_text().strip(" \t\n\r")
 
 #Retrieves Status of Idea
 def get_status(soup):
@@ -49,14 +46,15 @@ def scraping(id):
 	comment_array = get_comments(soup)
 
 	#Testing
-	print("Status: " + status)
-	print("PM Response: " + pm_response)
-	print("Last Response Date: " + date)
-	print("HTML Solution: " + solution)
-	print("PM Response Details: " + details)
-	for i in range(len(comment_array)):
-		print("----------------------------------------")
-		print(comment_array[i])
+	# print("Status: " + status)
+	# print("PM Response: " + pm_response)
+	# print("Last Response Date: " + date)
+	# print("HTML Solution: " + solution)
+	# print("PM Response Details: " + details)
+	# for i in range(len(comment_array)):
+	# 	print("----------------------------------------")
+	# 	print(comment_array[i])
+	return status, pm_response, date, solution, details, comment_array
 
 scraping(test1)
 # scraping(test2)
