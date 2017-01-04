@@ -1,23 +1,22 @@
 import pandas as pd 
 
-#TO USE: READ NOTE IN LINE 9
+#TO USE: READ NOTE IN LINE 10
 
 
-#Iterator Object that returns IDs
-class IDCounter:
-    def __init__(self):
-        self.datafield = pd.read_csv('Workbook2.csv') #REPLACE Workbook2.csv with the csv file in question
-        self.index = 0
-
-    def __iter__(self):
-       return self
-    def __next__(self):
+#Generator Object that returns IDs
+def IDCounterGenerator():
+    b = True
+    index = 0
+    datafield = pd.read_csv('Workbook2.csv') #Replace Workbook2.csv with filename
+    while b:
         try:
-            self.index += 1
-            return self.datafield['Idea ID'][self.index - 1]
+            index += 1
+            yield datafield['Idea ID'][index - 1]
         except:
-            raise StopIteration
-#Example Iterator code
-x = IDCounter()
+            b = False
+
+
+#Example Generator code
+x = IDCounterGenerator()
 for d in x:
 	print(d)
