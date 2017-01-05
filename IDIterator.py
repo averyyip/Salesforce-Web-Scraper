@@ -4,10 +4,10 @@ import pandas as pd
 
 
 #Generator Object that returns IDs
-def IDCounterGenerator():
+def id_counter_generator(file_name):
     b = True
     index = 0
-    datafield = pd.read_csv('Workbook2.csv') #Replace Workbook2.csv with filename
+    datafield = pd.read_excel(file_name) #Replace Workbook2.csv with filename
     while b:
         try:
             index += 1
@@ -17,6 +17,6 @@ def IDCounterGenerator():
 
 
 #Example Generator code
-x = IDCounterGenerator()
-for d in x:
-	print(d)
+# x = IDCounterGenerator()
+# for d in x:
+# 	print(d)
