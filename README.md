@@ -8,6 +8,7 @@ Packages Required:
   - BeautifulSoup4
   - Pandas (will automatically install other dependencies)
   - XlswWriter
+  - Xlrd
 
 IDIterator.py provides the functionality related to reading the excel spreasheet and outputting a generator that returns Idea Ids
 
