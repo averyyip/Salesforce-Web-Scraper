@@ -1,5 +1,4 @@
 from bs4 import BeautifulSoup
-import pandas as pd
 import urllib.request
 
 
@@ -18,8 +17,12 @@ def get_pm_response(soup):
 	if latest_comment_section:
 		date = html_text_getter(latest_comment_section.find("span", {"class":"cmp-text-body--small"}))
 		detail = html_text_getter(latest_comment_section.find("div", {"class":"htmlDetailElementDiv"}))
-		solution = latest_comment_section.find("a", {"target": "_blank"}).get_text() #did not want to accidentally ruin html link
-		return "Y", date, solution, detail
+		solution = latest_comment_section.find("a", {"target": "_blank"}) #did not want to accidentally ruin html link
+		
+		if solution:
+			return "Y", date, solution.get_text(), detail
+		else:
+			return "Y", date, "N/A", detail
 	else:
 		return "N", "N/A", "N/A", "N/A"
 
@@ -54,8 +57,8 @@ def scraping(id):
 	# for i in range(len(comment_array)):
 	# 	print("----------------------------------------")
 	# 	print(comment_array[i])
-	return status, pm_response, date, solution, details, comment_array
+	return [status, pm_response, date, solution, details] + comment_array[0:10] #top 15 comments
 
-scraping(test1)
+# scraping(test1)
 # scraping(test2)
 # scraping(test3)
