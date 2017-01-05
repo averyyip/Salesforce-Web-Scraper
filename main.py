@@ -13,11 +13,31 @@ id_iterator = id_counter_generator(file_name)
 results = pd.DataFrame(columns=["Status","PM_Response", "Date", "Solution", "Details", "Comment1", "Comment2", "Comment3", "Comment4", "Comment5", "Comment6", "Comment7", "Comment8", "Comment9", "Comment10"])
 
 counter = 0
+
 for idea_id in id_iterator:
+	print("------------------------------")
 	scraped_idea = scraping(idea_id)
 	results = addToDataFrame(results, *scraped_idea)
 	counter += 1
 	print(counter)
+	if counter % 100 == 0:
+		existing_excel = pd.read_excel(file_name)
+		answer = pd.concat([existing_excel, results], axis=1)
+		createExcel(answer)
+		print('COMPLETE')
+
+#Testing
+# for idea_id in id_iterator:
+# 	if counter == 214:
+# 		scraped_idea = scraping(idea_id)
+# 		results = addToDataFrame(results, *scraped_idea)
+# 		existing_excel = pd.read_excel(file_name)
+# 		results = pd.concat([existing_excel, results], axis=1)
+# 		createExcel(results)
+# 		print('Finished')
+# 	else:
+# 		counter += 1
+
 
 existing_excel = pd.read_excel(file_name)
 results = pd.concat([existing_excel, results], axis=1)

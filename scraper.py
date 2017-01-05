@@ -45,9 +45,12 @@ def scraping(id):
 	#PM Response Information
 	pm_response, date, solution, details = get_pm_response(soup)
 
-	#Comments
-	comment_array = get_comments(soup)
+	#Top 10 Comments
+	comment_array = get_comments(soup)[0:10]
 
+	while len(comment_array) != 10:
+		comment_array += ['N/A']
+		
 	#Testing
 	# print("Status: " + status)
 	# print("PM Response: " + pm_response)
@@ -57,7 +60,7 @@ def scraping(id):
 	# for i in range(len(comment_array)):
 	# 	print("----------------------------------------")
 	# 	print(comment_array[i])
-	return [status, pm_response, date, solution, details] + comment_array[0:10] #top 15 comments
+	return [status, pm_response, date, solution, details] + comment_array
 
 # scraping(test1)
 # scraping(test2)
