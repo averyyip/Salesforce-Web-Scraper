@@ -5,11 +5,11 @@ import pandas as pd
 #Then, use createExcel() to create the final excel file
 
 
-df = pd.DataFrame(columns=["Status","PM_Response", "Date", "Solution", "Details", "Comment1", "Comment2", "Comment3"])
+df = pd.DataFrame(columns=["Status","PM_Response", "Date", "Solution", "Details", "Comment1", "Comment2", "Comment3", "Comment4", "Comment5", "Comment6", "Comment7", "Comment8", "Comment9", "Comment10"])
 
 # Adds given data to the dataFrame df
-def addToDataFrame(status, pm_response, date, solution, details, comment1, comment2, comment3):
-	df2 = pd.DataFrame([[status, pm_response, date, solution, details, comment1, comment2, comment3]], columns=["Status","PM_Response", "Date", "Solution", "Details", "Comment1", "Comment2", "Comment3"])
+def addToDataFrame(status, pm_response, date, solution, details, comment1, comment2, comment3, comment4, comment5, comment6, comment7, comment8, comment9, comment10):
+	df2 = pd.DataFrame([[status, pm_response, date, solution, details, comment1, comment2, comment3, comment4, comment5, comment6, comment7, comment8, comment9, comment10]], columns=["Status","PM_Response", "Date", "Solution", "Details", "Comment1", "Comment2", "Comment3", "Comment4", "Comment5", "Comment6", "Comment7", "Comment8", "Comment9", "Comment10"])
 	global df
 	frames = [df, df2]
 	df = pd.concat(frames, ignore_index=True)
@@ -23,7 +23,7 @@ def createExcel():
 	writer.save()
 
 #Creates an example dataframe and creates an excel spreadsheet
-addToDataFrame(3,2,2,2,2,2,2,2)
-addToDataFrame(3,2,2,2,2,2,2,2)
-addToDataFrame(3,2,2,2,2,2,2,2)
+addToDataFrame(3,2,2,2,2,2,2,2, 4, 4, 4, 4, 4, 4, 4)
+addToDataFrame(3,2,2,2,2,2,2,2,4, 4, 4, 4, 4, 4, 4)
+addToDataFrame(3,2,2,2,2,2,2,2,4, 4, 4, 4, 4, 4, 4)
 createExcel()
