@@ -1,4 +1,4 @@
-# Salesforce-Web-Crawling
+# Salesforce-Web-Scraping
 Project created for a Salesforce Externship by Shiv and Avery
 
 This program takes a spreadsheet containing Idea IDs (that are presorted by number of upvotes), scrapes/extracts the corresponding data
